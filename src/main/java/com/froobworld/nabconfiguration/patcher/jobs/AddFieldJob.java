@@ -18,7 +18,7 @@ public class AddFieldJob implements PatchJob {
     public AddFieldJob(Properties properties) {
         this.key = properties.getProperty("key");
         String valueString = properties.getProperty("value");
-        this.value = valueString == null ? null : (" " + valueString);
+        this.value = valueString == null ? "" : (" " + valueString);
         String commentString = properties.getProperty("comment");
         this.comment = commentString == null ? Collections.emptyList() : Arrays.asList(commentString.split("\n"));
         String bodyString = properties.getProperty("body");

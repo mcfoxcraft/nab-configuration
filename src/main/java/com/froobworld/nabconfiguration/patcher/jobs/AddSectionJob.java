@@ -16,7 +16,8 @@ public class AddSectionJob implements PatchJob {
 
     public AddSectionJob(Properties properties) {
         this.key = properties.getProperty("key");
-        this.value = properties.getProperty("value");
+        String valueString = properties.getProperty("value");
+        this.value = valueString == null ? "" : valueString;
         String commentString = properties.getProperty("comment");
         this.comment = commentString == null ? Collections.emptyList() : Arrays.asList(commentString.split("\n"));
         this.before = properties.getProperty("before");
