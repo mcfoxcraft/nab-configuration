@@ -46,7 +46,7 @@ public class AddFieldJob implements PatchJob {
                 if (nextElement.isPresent()) {
                     throw new IllegalArgumentException("Tried to add field with key " + key + ", but element already exists.");
                 } else {
-                    YamlField field = new YamlField(key, comment, value, body);
+                    YamlField field = new YamlField(currentKey, comment, value, body);
                     if (before == null) {
                         elementList.add(field);
                     } else {

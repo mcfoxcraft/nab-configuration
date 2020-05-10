@@ -43,7 +43,7 @@ public class AddSectionJob implements PatchJob {
                 if (nextElement.isPresent()) {
                     throw new IllegalArgumentException("Tried to add section with key " + key + ", but element already exists.");
                 } else {
-                    YamlSection section = new YamlSection(key, comment, value, new ArrayList<>());
+                    YamlSection section = new YamlSection(currentKey, comment, value, new ArrayList<>());
                     if (before == null) {
                         elementList.add(section);
                     } else {
