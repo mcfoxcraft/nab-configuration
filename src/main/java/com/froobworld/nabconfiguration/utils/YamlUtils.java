@@ -36,7 +36,7 @@ public final class YamlUtils {
         List<String> lines = element.toLines();
         return new YamlGibberish(
                 lines.stream()
-                .map(line -> "#" + line)
+                .map(line -> isComment(line) ? line : ("#" + line))
                 .collect(Collectors.toList())
         );
     }
