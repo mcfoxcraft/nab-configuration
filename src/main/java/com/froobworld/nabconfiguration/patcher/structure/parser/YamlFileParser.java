@@ -11,10 +11,10 @@ import java.util.stream.Collectors;
 // TODO: Make this less terrible
 public class YamlFileParser {
     private static final Yaml YAML = new Yaml();
-    private static final String COMMENT_REGEX = "(#[^\r\n|\r|\n]*(\r\n|\r|\n))";
+    private static final String COMMENT_REGEX = "(#[^\r\n|\r|\n]{0,200}(\r\n|\r|\n))";
     private static final String KEY_REGEX = "((?<=\\r\\n|\\r|\\n)[a-zA-Z0-9-_][a-zA-Z0-9-_ ]*:)";
     private static final Pattern YAML_ENTRY_SEPARATOR_PATTERN = Pattern.compile(
-            "(?=" +                                     // Want to match empty space before the following patttern
+            "(?=" +                                     // Want to match empty space before the following pattern
             "(?<!" + COMMENT_REGEX + ")" +              // Don't want any comments before the empty space
             COMMENT_REGEX + "*" +                       // Want to capture all comments after the empty space
             KEY_REGEX                                   // Require a key at the end
