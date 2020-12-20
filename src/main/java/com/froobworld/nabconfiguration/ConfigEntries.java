@@ -1,5 +1,8 @@
 package com.froobworld.nabconfiguration;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public final class ConfigEntries {
 
 
@@ -40,6 +43,10 @@ public final class ConfigEntries {
             }
             return null;
         });
+    }
+    
+    public static ConfigEntry<List<String>> stringListEntry() {
+        return new ConfigEntry<>(o -> o == null ? new ArrayList<>() : (List<String>) o);
     }
 
 }
