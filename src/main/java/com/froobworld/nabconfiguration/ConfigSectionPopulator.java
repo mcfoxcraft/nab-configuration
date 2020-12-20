@@ -1,6 +1,7 @@
 package com.froobworld.nabconfiguration;
 
 import com.froobworld.nabconfiguration.annotations.Entry;
+import com.froobworld.nabconfiguration.annotations.EntryMap;
 import com.froobworld.nabconfiguration.annotations.Section;
 import com.froobworld.nabconfiguration.annotations.SectionMap;
 import com.froobworld.nabconfiguration.utils.InstantFallbackConfigurationSection;
@@ -56,6 +57,18 @@ public class ConfigSectionPopulator {
                 if (entryAnnotation != null) {
                     ConfigEntry configEntry = (ConfigEntry) field.get(workConfigSection);
                     configEntry.setValue(configurationSection.get(entryAnnotation.key()));
+                }
+            }
+            {
+                EntryMap entryMapAnnotation = field.getAnnotation(EntryMap.class);
+                if (entryMapAnnotation != null) {
+                    ConfigEntryMap configEntryMap = (ConfigEntryMap) field.get(workConfigSection);
+                    InstantFallbackConfigurationSection mapSection = configurationSection.getSection(entryMapAnnotation.key(), null);
+
+                    configEntryMap.setDefault(mapSection.get(entryMapAnnotation.defaultKey()));
+                    for (String key : mapSection.getKeys(false)) {
+                        configEntryMap.put(key, mapSection.get(key));
+                    }
                 }
             }
         }
