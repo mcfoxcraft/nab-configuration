@@ -32,6 +32,9 @@ public class YamlFileParser {
 
     private static List<YamlElement> parse(String input) throws IOException {
         Map<String, Object> yamlMap = YAML.load(input);
+        if (yamlMap == null) {
+            return new ArrayList<>();
+        }
         Set<String> sectionKeys = yamlMap.entrySet().stream()
                 .filter(entry -> entry.getValue() == null || entry.getValue() instanceof Map)
                 .map(Map.Entry::getKey)
@@ -167,8 +170,17 @@ public class YamlFileParser {
                             .map(line -> line.replaceFirst(" {0," + sectionIndentation + "}", ""))
                             .collect(Collectors.joining("\n"));
 
-                    element = new YamlSection(key, comment, value, parse(sectionInput));
+                    List<YamlElement> sectionElements = parse(sectionInput);
+                    if (sectionElements.isEmpty()) {
+                        body.addAll(tail);
+                        gibberish = null;
+                        element = new YamlField(key, comment, value, body);
+                    } else {
+                        element = new YamlSection(key, comment, value, parse(sectionInput));
+                    }
                 } else {
+                    body.addAll(tail);
+                    gibberish = null;
                     element = new YamlField(key, comment, value, body);
                 }
             }
