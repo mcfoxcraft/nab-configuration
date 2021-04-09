@@ -17,6 +17,10 @@ public class ConfigSectionMap<K, C extends ConfigSection> {
         this.ignoreCase = ignoreCase;
     }
 
+    void clear() {
+        sectionMap.clear();
+        defaultSection = null;
+    }
 
     void setDefaultSection(C defaultSection) {
         this.defaultSection = defaultSection;

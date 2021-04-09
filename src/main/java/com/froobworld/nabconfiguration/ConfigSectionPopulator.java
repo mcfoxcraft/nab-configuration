@@ -39,6 +39,7 @@ public class ConfigSectionPopulator {
                 SectionMap sectionMapAnnotation = field.getAnnotation(SectionMap.class);
                 if (sectionMapAnnotation != null) {
                     ConfigSectionMap configSectionMap = (ConfigSectionMap) field.get(workConfigSection);
+                    configSectionMap.clear();
                     InstantFallbackConfigurationSection mapSection = configurationSection.getSection(sectionMapAnnotation.key(), null);
 
                     ConfigSection defaultEntry = (ConfigSection) configSectionMap.entryType().getConstructor().newInstance();
@@ -63,6 +64,7 @@ public class ConfigSectionPopulator {
                 EntryMap entryMapAnnotation = field.getAnnotation(EntryMap.class);
                 if (entryMapAnnotation != null) {
                     ConfigEntryMap configEntryMap = (ConfigEntryMap) field.get(workConfigSection);
+                    configEntryMap.clear();
                     InstantFallbackConfigurationSection mapSection = configurationSection.getSection(entryMapAnnotation.key(), null);
 
                     configEntryMap.setDefault(mapSection.get(entryMapAnnotation.defaultKey()));

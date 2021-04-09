@@ -9,7 +9,7 @@ public class ConfigEntryMap<K, T> {
     private final Function<K, String> keyMappingFunction;
     private final Map<String, ConfigEntry<T>> entryMap = new HashMap<>();
     private final Supplier<ConfigEntry<T>> emptyConfigEntrySupplier;
-    private final ConfigEntry<T> def;
+    private ConfigEntry<T> def;
     private final boolean ignoreCase;
 
     public ConfigEntryMap(Function<K, String> keyMappingFunction, Supplier<ConfigEntry<T>> emptyConfigEntrySupplier, boolean ignoreCase) {
@@ -17,6 +17,11 @@ public class ConfigEntryMap<K, T> {
         this.emptyConfigEntrySupplier = emptyConfigEntrySupplier;
         this.def = emptyConfigEntrySupplier.get();
         this.ignoreCase = ignoreCase;
+    }
+
+    void clear() {
+        entryMap.clear();
+        def = emptyConfigEntrySupplier.get();
     }
 
     public ConfigEntry<T> of(K key) {
