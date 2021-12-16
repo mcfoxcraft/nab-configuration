@@ -99,11 +99,11 @@ public class MoveJob implements PatchJob {
                 int index = 0;
                 for (YamlElement element : toDestination) {
                     if (element instanceof YamlField) {
-                        if (((YamlField) element).getKey().equals(finalFromKey)) {
+                        if (((YamlField) element).getKey().equals(before)) {
                             break;
                         }
                     } else if (element instanceof YamlSection) {
-                        if (((YamlSection) element).getKey().equals(finalFromKey)) {
+                        if (((YamlSection) element).getKey().equals(before)) {
                             break;
                         }
                     }
